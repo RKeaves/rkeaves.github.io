@@ -247,6 +247,10 @@ h1:hover, h2:hover, h3:hover, h4:hover {
   border-radius: 8px;
 }
 
+#chatbox__messages-create {
+  margin-bottom: 9px;
+}
+
 /* ===============================================================
    Animations
 ================================================================= */
