@@ -92,6 +92,15 @@ body {
   filter: drop-shadow(20px 18px 18px rgba(0, 0, 0, 0.5));
 }
 
+.top-nav__dropdown ul {
+  background: var( --surface-02);
+
+}
+
+.nav-tab-menu__items {
+  background: var( --surface-02);
+
+}
 
 /* =============================
    Alerts Section
@@ -477,4 +486,3 @@ img.chatbox-message__avatar:hover::after {
 }
 
 /*# sourceMappingURL=chat.css.map */
- 
