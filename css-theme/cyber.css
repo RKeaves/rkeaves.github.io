@@ -389,14 +389,15 @@ i[title="System Notification"] {
   color: rgba(170, 170, 170, 0.5019607843) !important;
 }
 
-/* Option 5: Extended Soft-Edge Glow */
+/* Extended Soft-Edge Glow Messages */
+
 .chatbox-message__content {
-  color: #a9a9a9;
+  color: #ded7e8;
   transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
 }
 .chatbox-message__content:hover {
   color: #fff;
-  text-shadow: 0 0 6px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.1);
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.37), 0 0 6px rgba(255, 255, 255, 0.045);
 }
 
 
