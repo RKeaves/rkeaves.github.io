@@ -291,6 +291,11 @@ h1:hover, h2:hover, h3:hover, h4:hover {
 /* ===============================================================
    Chat Section Overrides & Adjustments
 ================================================================= */
+
+.chatbox-message__content {
+    font-family: Calibri, sans-serif;
+}
+
 .chatbox-message,
 .chatbox-message:before,
 .chatbox-message__header > div,
