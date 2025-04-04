@@ -112,7 +112,9 @@ body {
   background: #312b33 !important;
 }
 
-/* Logo styling with purple drop-shadow and subtle background for readability */
+/* =============================
+   Logo styling
+================================ */
 
 .top-nav__site-logo {
   background-image: radial-gradient(circle at 65% 35%, #fff 25%, #fff 60%, #fff 90%);
