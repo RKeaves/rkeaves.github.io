@@ -353,7 +353,6 @@ body {
   border-color: var(--primary-accent);
 }
 
-/* Stats Box (Ratio Bar) */
 .top-nav__ratio-bar {
   display: inline-flex; 
   background: var(--surface-01);
@@ -503,8 +502,12 @@ h1:hover, h2:hover, h3:hover, h4:hover {
 }
 
 .chatbox-message__content {
-  font-family: Calibri, sans-serif;
+  font-family: Terminal, monospace;
+  color: #00FF00;
+  text-shadow: 0 0 1px #00FF00;
+  
 }
+
 .chatbox-message,
 .chatbox-message:before,
 .chatbox-message__header > div,
@@ -585,7 +588,7 @@ div[style*="white-space: nowrap;"] {
 .chatbox-message:before {
   background-color: transparent;
   border: none;
-  font-size: 14px !important;
+  font-size: 12px !important;
 }
 
 a[href="/users/System"] {
@@ -630,7 +633,7 @@ details.panel {
   padding: 0.75rem 1rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.25rem;
-  color: #91fd5fd6;
+  color: #00FF88;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -703,7 +706,7 @@ img.chatbox-message__avatar:hover::after {
 }
 
 section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__row {
-  grid-template-columns: 1fr auto auto; /* First column takes up remaining space */
+  grid-template-columns: 1fr auto auto;
   align-content: center;
 }
 
