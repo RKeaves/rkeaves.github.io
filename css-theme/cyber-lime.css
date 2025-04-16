@@ -445,9 +445,11 @@ h1, h2, h3, h4 {
   font-family: 'JetBrains Mono', monospace;
   color: var(--text-primary);
 }
+
 h1:hover, h2:hover, h3:hover, h4:hover {
-  filter: drop-shadow(0 0 3px var(--primary-accent));
+  filter: drop-shadow(0 0 0px var(--primary-accent));
 }
+
 .text-info {
   color: var(--text-secondary);
 }
