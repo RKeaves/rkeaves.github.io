@@ -61,6 +61,10 @@
   width: 90%;
 }
 
+.special-event-alert:hover {
+  filter: drop-shadow(0 0 3px var(--primary-accent));
+}
+ 
 .special-event-alert:before {
   content: '';
   position: absolute;
