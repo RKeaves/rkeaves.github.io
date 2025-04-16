@@ -705,10 +705,14 @@ img.chatbox-message__avatar:hover::after {
   opacity: 1;
 }
 
+/*
+
 section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__row {
   grid-template-columns: 1fr auto auto;
   align-content: center;
 }
+
+*/
 
 section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__resolution-and-type {
   display: contents;
