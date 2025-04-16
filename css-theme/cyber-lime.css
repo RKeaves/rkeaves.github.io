@@ -713,7 +713,7 @@ section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__row 
 section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__row > .torrent-search--list__format {
   justify-self: start;
   text-align: left;
-  padding-right: 1350px;
+  padding-right: 1450px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
