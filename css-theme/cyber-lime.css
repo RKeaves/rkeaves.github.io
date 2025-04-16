@@ -2,7 +2,7 @@
  !/* Theme Name: Cyber-Unit3D Lime                                                   !/*
  !/* Theme URL: https://rkeaves.github.io/css-theme/cyber-lime.css                   !/*
  !/* Description: Cyber United, lime green version.                                  !/*
- !/* Version: 1.0                                                                    !/*
+ !/* Version: 1.0.1                                                                  !/*
  !/* Author: RKeaves                                                                 !/*
  !/* Author URL: https://github.com/rkeaves                                          !/*
  !/* License: MIT https://opensource.org/licenses/MIT                                !/*
@@ -712,13 +712,25 @@ section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__row 
   align-content: center;
 }
 
-*/
-
 section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__resolution-and-type {
   display: contents;
   font-size: 1.1em;
   align-content: center;
   align-items: center;
+}
+*/
+
+section:not(.blocks__alerts-tab)
+  .torrent-search--list__resolution-and-type {
+  position: relative; /* remove from normal flow */
+  left: 10px;         /* adjust as needed */
+  font-size: 1.1em;
+  /* remove display: contents if you need a real box to position */
+}
+
+
+.data-table-wrapper {
+  position: relative; /* establishes a containing block for absolute children */
 }
 
 
@@ -764,9 +776,7 @@ section:not(.blocks__alerts-tab) .torrent-search--list__name {
   border: none !important;
 }
 
-section:not(.blocks__alerts-tab) .torrent-search--list__overview > div {
-  display: block ruby;
-}
+
 
 /* Add spacing  */
 .blocks__alerts-tab .user-tag__link {
@@ -815,7 +825,7 @@ section:not(.blocks__alerts-tab) .data-table-wrapper .user-tag__link {
 
 section:not(.blocks__alerts-tab) .torrent-search--list__name {
   display: inline-block;
-  max-width: 850px;
+  max-width: 500px;
   white-space: nowrap;
   overflow: clip;
   text-overflow: ellipsis;
