@@ -608,7 +608,7 @@ i[title="System Notification"] {
 }
 
 .chatbox-message__content {
-  color: #ded7e8;
+  color: #99ff6a;
   transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
 }
 .chatbox-message__content:hover {
@@ -630,7 +630,7 @@ details.panel {
   padding: 0.75rem 1rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.25rem;
-  color: #04D974;
+  color: #91fd5fd6;
   cursor: pointer;
   display: flex;
   align-items: center;
