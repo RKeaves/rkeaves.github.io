@@ -630,13 +630,27 @@ details.panel {
   padding: 0.75rem 1rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.25rem;
-  color: #81FB68;
+  color: #00FF88;
   cursor: pointer;
   display: flex;
   align-items: center;
   position: relative;
   transition: box-shadow 0.3s ease;
 }
+
+.form__button--text {
+  color: #00FF88;
+  transition: text-shadow 0.3s ease;
+}
+
+.form__button--text:hover {
+  text-shadow:
+  0 0 1px #00BFFF,
+  0 0 4px #00BFFF,
+  0 0 5px #00BFFF;
+  
+}
+
 .panel__heading i {
   margin-right: 0.5rem;
 }
