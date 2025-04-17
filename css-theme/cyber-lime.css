@@ -831,4 +831,29 @@ section:not(.blocks__alerts-tab) .torrent-search--list__name {
   text-overflow: ellipsis;
   text-align: left;
 }
-/*# sourceMappingURL=chat.css.map */
+
+section:not(.blocks__alerts-tab) .torrent-search--list__name {
+  position: relative;      /* parent for absolute expanded state */
+  display: inline-block;   /* allow width */
+  max-width: 500px;         /* original width limit */
+  white-space: nowrap;     /* single-line truncation */
+  overflow: hidden;        /* hide overflow */
+  text-overflow: ellipsis; /* show ellipsis */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+section:not(.blocks__alerts-tab) .torrent-search--list__name:hover {
+  position: unset;      /* remove from flow */
+  bottom: 100%;            /* position just above the original element */
+  left: 0;
+  white-space: normal;     /* allow wrapping */
+  overflow: visible;       /* reveal hidden text */
+  max-width: 100vw;        /* limit to viewport width */
+  background: var(--surface-02);
+  color: var(--text-primary);
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
