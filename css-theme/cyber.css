@@ -393,6 +393,10 @@ div[style*="white-space: nowrap;"] {
 .chatbox-message__header > div,
 .chatbox-message__content > div {
   color: #d5cede !important;
+  font-family: Calibri, sans-serif !important;;
+  font-style: normal !important;
+
+}
 }
 
 .chatbox-message__header > div {
@@ -400,7 +404,7 @@ div[style*="white-space: nowrap;"] {
 }
 
 .chatbox__chatroom {
-  line-height: 0.9 !important;
+  line-height:  0.9 !important;
   background-color: #1c1c1c;
 }
 
