@@ -2,7 +2,7 @@
  !/* Theme Name: Cyber-Unit3D Lime                                                   !/*
  !/* Theme URL: https://rkeaves.github.io/css-theme/cyber-lime.css                   !/*
  !/* Description: Cyber United, lime green version.                                  !/*
- !/* Version: 1.0.1                                                                  !/*
+ !/* Version: 1.1.1                                                                  !/*
  !/* Author: RKeaves                                                                 !/*
  !/* Author URL: https://github.com/rkeaves                                          !/*
  !/* License: MIT https://opensource.org/licenses/MIT                                !/*
@@ -27,27 +27,6 @@
   --quick-search-input-offset: 6px; 
   --content-max-width: 1200px;      
   --content-padding: 20px;
-}
-
-.js-cookie-consent.cookie-consent {
-  background: linear-gradient(145deg, var(--surface-01), var(--dark-base));
-  border: 1px solid var(--primary-accent);
-  box-shadow: 0 4px 20px rgba(129, 199, 132, 0.15);
-  border-radius: 8px;
-  padding: 1.2rem;
-  margin: 1rem auto;
-  max-width: 90%;
-  backdrop-filter: blur(4px);
-}
-
-.cookie-consent__agree {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: center;
-}
-
-.cookie-consent__agree:hover {
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(129, 199, 132, 0.3);
 }
 
 .special-event-alert {
@@ -141,11 +120,6 @@
   white-space: normal;
 }
 
-.data-table td * {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-}
 
 .data-table tr {
   transition: all 0.3s ease;
@@ -331,7 +305,6 @@ body {
   gap: 1rem;
 }
 
-/* Logo Styling */
 .top-nav__site-logo {
   background-image: radial-gradient(circle at 65% 35%, #fff 25%, #fff 60%, #fff 90%);
   background-color: rgba(129,199,132,0.2);
@@ -456,7 +429,6 @@ h1:hover, h2:hover, h3:hover, h4:hover {
   color: var(--primary-accent);
 }
 
-/* Chat Box (Chatroom) */
 .chatbox__chatroom {
   background: var(--surface-01);
   border: 1px solid var(--primary-accent);
@@ -467,7 +439,6 @@ h1:hover, h2:hover, h3:hover, h4:hover {
   margin-bottom: 9px;
 }
 
-/* Animations */
 @keyframes subtlePulse {
   0% { opacity: 0.95; }
   50% { opacity: 1; }
@@ -497,6 +468,17 @@ h1:hover, h2:hover, h3:hover, h4:hover {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
 }
+
+@keyframes cyberFlicker2 {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.93; }
+}
+
+.top-nav__branding {
+  border: none !important;
+  animation: cyberFlicker2 1.1s infinite;
+}
+
 .cyber-icon.glow {
   animation: cyberFlicker 1.5s infinite;
 }
@@ -568,11 +550,15 @@ div[style*="white-space: nowrap;"] {
 
 .chatbox-message__header > div,
 .chatbox-message__content > div {
-  color: #aaaaaa !important;
+  color: #77e752 !important;
+  font-family: Terminal, monospace;
+  font-style: normal !important;
+
+}
 }
 
 .chatbox-message__header > div {
-  font-size: 12px !important;
+  font-size: 13px !important;
 }
 
 .chatbox__chatroom {
@@ -588,11 +574,12 @@ div[style*="white-space: nowrap;"] {
 .chatbox-message:before {
   background-color: transparent;
   border: none;
-  font-size: 12px !important;
+  font-size: 13px !important;
 }
 
 a[href="/users/System"] {
-  display: none;
+  margin-right:  6px;
+  opacity: 90%;
 }
 
 i[title="System Notification"] {
@@ -680,6 +667,7 @@ img.user-search__avatar:hover,
 img.user-stat-card__avatar:hover,
 img.chatbox-message__avatar:hover {
   box-shadow: 0 0 8px var(--cyber-cyan);
+  animation: cyberFlicker 2.5s infinite;
 }
 img.user-search__avatar::after,
 img.user-stat-card__avatar::after,
@@ -705,80 +693,10 @@ img.chatbox-message__avatar:hover::after {
   opacity: 1;
 }
 
-/*
-
-section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__row {
-  grid-template-columns: 1fr auto auto;
-  align-content: center;
-}
-
-section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__resolution-and-type {
-  display: contents;
-  font-size: 1.1em;
-  align-content: center;
-  align-items: center;
-}
-*/
-
-section:not(.blocks__alerts-tab)
-  .torrent-search--list__resolution-and-type {
-  position: relative; /* remove from normal flow */
-  left: 10px;         /* adjust as needed */
-  font-size: 1.1em;
-  /* remove display: contents if you need a real box to position */
-}
-
-
 .data-table-wrapper {
-  position: relative; /* establishes a containing block for absolute children */
+  position: relative; 
 }
 
-
-section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__row > :nth-child(2),
-section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__row > :nth-child(3) {
-  justify-self: end;
-  text-align: end;
-  padding-right: var(--number-padding, 200px);
-  align-content: center;
-  align-items: center;
-}
-
-section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__row > .torrent-search--list__format {
-  justify-self: start;
-  text-align: left;
-  padding-right: 1450px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__format a,
-section:not(.blocks__alerts-tab) .data-table-wrapper .torrent-search--list__format span {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1.2;
-}
-
-
-section:not(.blocks__alerts-tab) .torrent-search--list__name {
-  display: block;
-  text-align: left;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  flex-shrink: 1;
-  min-width: 0; 
- 
-}
-
-
-
-.top-nav__branding {
-  border: none !important;
-}
-
-
-
-/* Add spacing  */
 .blocks__alerts-tab .user-tag__link {
   margin-right: 0.5em;
   margin-left: 0.9em;
@@ -821,39 +739,4 @@ section:not(.blocks__alerts-tab) .data-table-wrapper .user-tag__link {
 
 .data-table-wrapper .torrent-search--list__uploader {
   margin-right: 0.25em;
-}
-
-section:not(.blocks__alerts-tab) .torrent-search--list__name {
-  display: inline-block;
-  max-width: 500px;
-  white-space: nowrap;
-  overflow: clip;
-  text-overflow: ellipsis;
-  text-align: left;
-}
-
-section:not(.blocks__alerts-tab) .torrent-search--list__name {
-  position: relative;      /* parent for absolute expanded state */
-  display: inline-block;   /* allow width */
-  max-width: 500px;         /* original width limit */
-  white-space: nowrap;     /* single-line truncation */
-  overflow: hidden;        /* hide overflow */
-  text-overflow: ellipsis; /* show ellipsis */
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-section:not(.blocks__alerts-tab) .torrent-search--list__name:hover {
-  position: unset;      /* remove from flow */
-  bottom: 100%;            /* position just above the original element */
-  left: 0;
-  white-space: normal;     /* allow wrapping */
-  overflow: visible;       /* reveal hidden text */
-  max-width: 100vw;        /* limit to viewport width */
-  background: var(--surface-02);
-  color: var(--text-primary);
-  padding: 0.5em 0.75em;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-  z-index: 999;
 }
