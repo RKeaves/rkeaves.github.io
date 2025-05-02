@@ -216,6 +216,25 @@
         left: 100%;
       }
     }
+
+  /* Hint image styling */
+  .hint-img {
+    width: 80px;
+    margin-top: 1rem;
+    opacity: 0.6;
+    animation: pulse 3s ease-in-out infinite, fadeIn 1s ease-out forwards;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%     { transform: scale(1.1); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 0.6; }
+  }
+
+    
   </style>
 </head>
 <body>
@@ -233,11 +252,17 @@
 <div id="overlay" class="hidden">
   <div id="headline">initializing access sequence</div>
   <div id="accessSection">
-    <!-- Wrap the glitch div in an anchor -->
-    <a href="index.html" style="text-decoration: none;">
+    <a href="index.html" style="text-decoration:none;">
       <div class="glitch" data-text="ACCESS GRANTED">ACCESS GRANTED</div>
     </a>
     <div id="code-box">loading code...</div>
+
+    <!-- Your new tornado hint below -->
+    <img
+      src="http://rkeaves.online/assets/tornado.webp"
+      alt="tornado hint"
+      class="hint-img"
+    />
   </div>
 </div>
 
