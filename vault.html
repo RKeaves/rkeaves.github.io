@@ -78,27 +78,31 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.85);
       z-index: 4;
-      display: flex;
+    }
+
+    /* Headline scroll animation */
+    #headline {
+      position: absolute;
+      top: 20px;
+      left: 100%;
+      font-size: 2.5rem;
+      white-space: nowrap;
+      animation: scrollLeft 6s linear forwards;
+      z-index: 3;
+    }
+    @keyframes scrollLeft {
+      0% { left: 100%; }
+      100% { left: -100%; }
+    }
+
+    /* Access section */
+    #accessSection {
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-
-    /* Headline typing effect */
-    #headline {
-      font-size: 2.5rem;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid #7CFC00;
-      width: 0;
-      animation: typing 4s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
-    }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    @keyframes blink-caret {
-      50% { border-color: transparent; }
+      gap: 1.5rem;
+      z-index: 4;
     }
 
     /* Glitch effect */
@@ -170,8 +174,10 @@
   <!-- Overlay -->
   <div id="overlay" class="hidden">
     <div id="headline">initializing access sequence</div>
-    <div class="glitch" data-text="ACCESS GRANTED">ACCESS GRANTED</div>
-    <div id="code-box">loading code...</div>
+    <div id="accessSection">
+      <div class="glitch" data-text="ACCESS GRANTED">ACCESS GRANTED</div>
+      <div id="code-box">loading code...</div>
+    </div>
   </div>
 
   <!-- Scripts -->
@@ -196,6 +202,10 @@
       initMatrix();
       setTimeout(() => {
         overlay.classList.remove('hidden');
+        setTimeout(() => {
+          headline.style.display = 'none';
+          document.getElementById('accessSection').style.display = 'flex';
+        }, 6000);
       }, 2000);
       setTimeout(fetchCode, 6500);
     });
@@ -252,34 +262,25 @@
       setInterval(draw, 50);
     }
 
-      // Fetch access code
-      function fetchCode() {
-        fetch('https://files.catbox.moe/myrqma.txt')
-          .then(res => res.text())
-          .then(txt => {
-            codeBox.textContent = 'access code: ' + txt.trim();
-            codeBox.style.display = 'block';
-          })
-          .catch(() => {
-            codeBox.textContent = 'access code: [FAILED TO LOAD]';
-            codeBox.style.display = 'block';
-          });
-      }
+    // Fetch access code
+    function fetchCode() {
+      fetch('https://files.catbox.moe/myrqma.txt')
+        .then(res => res.text())
+        .then(txt => {
+          codeBox.textContent = 'access code: ' + txt.trim();
+          codeBox.style.display = 'block';
+        })
+        .catch(() => {
+          codeBox.textContent = 'access code: [FAILED TO LOAD]';
+          codeBox.style.display = 'block';
+        });
+    }
 
-      // Resize canvas on window resize
-      window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      });
+    // Resize canvas on window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-    
-
