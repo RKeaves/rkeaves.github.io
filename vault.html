@@ -57,6 +57,7 @@
       width: 100%;
       height: 100%;
       z-index: 1;
+      opacity: 0.7;
     }
 
     /* Matrix canvas */
@@ -67,50 +68,96 @@
       width: 100%;
       height: 100%;
       z-index: 2;
+      mix-blend-mode: screen;
     }
 
     /* Overlay */
     #overlay {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.95);
       z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* Headline scroll animation */
+    /* Headline animation */
     #headline {
-      position: absolute;
-      top: 20px;
-      left: 100%;
+      position: relative;
       font-size: 2.5rem;
       white-space: nowrap;
-      animation: scrollLeft 6s linear forwards;
-      z-index: 3;
+      margin-top: 20vh;
+      animation: marquee 12s linear infinite;
+      opacity: 0;
+      animation-fill-mode: forwards;
     }
-    @keyframes scrollLeft {
-      0% { left: 100%; }
-      100% { left: -100%; }
+    @keyframes marquee {
+      0% {
+        transform: translateX(100vw);
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
     }
 
     /* Access section */
     #accessSection {
+      position: relative;
       display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1.5rem;
-      z-index: 4;
+      gap: 2rem;
+      z-index: 5;
+      animation: sectionEntry 1.5s ease-out forwards;
+      margin-top: 10vh;
+    }
+    @keyframes sectionEntry {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* Glitch effect */
+    /* Enhanced glitch effect */
     .glitch {
       position: relative;
       color: #7CFC00;
       font-size: 3rem;
-      margin-top: 1rem;
+      animation: glitchAnim 2s infinite linear;
+    }
+    @keyframes glitchAnim {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(-2px, 2px);
+      }
+      40% {
+        transform: translate(-2px, -2px);
+      }
+      60% {
+        transform: translate(2px, 2px);
+      }
+      80% {
+        transform: translate(2px, -2px);
+      }
+      100% {
+        transform: translate(0);
+      }
     }
     .glitch::before,
     .glitch::after {
@@ -122,41 +169,52 @@
       clip: rect(0, 0, 0, 0);
     }
     .glitch::before {
-      animation: glitchTop 2s infinite;
+      animation: glitchTop 2s infinite linear alternate-reverse;
       color: #f00;
     }
     .glitch::after {
-      animation: glitchBot 2s infinite;
+      animation: glitchBot 2s infinite linear alternate-reverse;
       color: #0ff;
     }
     @keyframes glitchTop {
-      0% { clip: rect(0, 9999px, 0, 0); }
-      10% { clip: rect(0, 9999px, 5px, 0); transform: translate(-2px, -2px); }
-      20% { clip: rect(0, 9999px, 5px, 0); transform: translate(2px, 2px); }
-      30% { clip: rect(0, 9999px, 5px, 0); transform: translate(-1px, 1px); }
-      40% { clip: rect(0, 9999px, 5px, 0); transform: translate(1px, -1px); }
-      50% { clip: rect(0, 9999px, 5px, 0); transform: translate(0, 0); }
-      100% { clip: rect(0, 9999px, 0, 0); }
+      0% { clip: rect(0, 9999px, 3px, 0); }
+      100% { clip: rect(0, 9999px, 9px, 0); }
     }
     @keyframes glitchBot {
-      0% { clip: rect(0, 9999px, 0, 0); }
-      10% { clip: rect(5px, 9999px, 10px, 0); transform: translate(2px, 2px); }
-      20% { clip: rect(5px, 9999px, 10px, 0); transform: translate(-2px, -2px); }
-      30% { clip: rect(5px, 9999px, 10px, 0); transform: translate(1px, -1px); }
-      40% { clip: rect(5px, 9999px, 10px, 0); transform: translate(-1px, 1px); }
-      50% { clip: rect(5px, 9999px, 10px, 0); transform: translate(0, 0); }
-      100% { clip: rect(0, 9999px, 0, 0); }
+      0% { clip: rect(0, 9999px, 9999px, 3px); }
+      100% { clip: rect(0, 9999px, 9999px, 9px); }
     }
 
     /* Code box */
     #code-box {
       background: rgba(0, 0, 0, 0.9);
-      padding: 1rem 2rem;
+      padding: 1.5rem 3rem;
       border: 2px solid #7CFC00;
       border-radius: 5px;
-      font-size: 1.2rem;
-      margin-top: 2rem;
+      font-size: 1.3rem;
+      position: relative;
+      overflow: hidden;
       display: none;
+    }
+    #code-box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(124, 252, 0, 0.2),
+        transparent
+      );
+      animation: codeGlow 2s infinite;
+    }
+    @keyframes codeGlow {
+      100% {
+        left: 100%;
+      }
     }
   </style>
 </head>
@@ -202,31 +260,32 @@
       initMatrix();
       setTimeout(() => {
         overlay.classList.remove('hidden');
+        headline.style.animation = 'marquee 12s linear forwards';
         setTimeout(() => {
           headline.style.display = 'none';
           document.getElementById('accessSection').style.display = 'flex';
-        }, 6000);
+        }, 11000);
       }, 2000);
-      setTimeout(fetchCode, 6500);
+      setTimeout(fetchCode, 12000);
     });
 
     // Initialize particles.js
     function initParticles() {
       particlesJS('particles-js', {
         particles: {
-          number: { value: 100, density: { enable: true, value_area: 800 } },
+          number: { value: 80, density: { enable: true, value_area: 1000 } },
           color: { value: '#7CFC00' },
           shape: { type: 'circle' },
-          opacity: { value: 0.5 },
-          size: { value: 3 },
+          opacity: { value: 0.4 },
+          size: { value: 2.5 },
           line_linked: {
             enable: true,
-            distance: 150,
+            distance: 180,
             color: '#7CFC00',
-            opacity: 0.2,
+            opacity: 0.15,
             width: 1
           },
-          move: { enable: true, speed: 2 }
+          move: { enable: true, speed: 1.8 }
         }
       });
     }
@@ -237,12 +296,12 @@
       canvas.height = window.innerHeight;
 
       const letters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      const fontSize = 16;
+      const fontSize = 18;
       const columns = Math.floor(canvas.width / fontSize);
       const drops = Array(columns).fill(1);
 
       function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = '#7CFC00';
         ctx.font = `${fontSize}px monospace`;
@@ -251,15 +310,14 @@
           const text = letters.charAt(Math.floor(Math.random() * letters.length));
           ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.97) {
             drops[i] = 0;
           }
-
           drops[i]++;
         }
       }
 
-      setInterval(draw, 50);
+      setInterval(draw, 66);
     }
 
     // Fetch access code
@@ -276,7 +334,7 @@
         });
     }
 
-    // Resize canvas on window resize
+    // Resize handling
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
