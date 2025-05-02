@@ -2,127 +2,187 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Access Code</title>
+  <title>Matrix Access Portal</title>
+
+  <!-- 1. Fonts & Normalize -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    /* reset and full-screen gray background */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; background: #333; overflow: hidden; }
+    /* reset */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; overflow:hidden; background:#111; color:#7cfc00; font-family:'Share Tech Mono', monospace; }
 
-    /* center container */
-    #container {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      cursor: pointer;
-    }
+    /* Utility */
+    .center { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+    .hidden { display:none !important; }
 
-    /* flickering text */
-    #triggerText {
-      font-family: 'Courier New', monospace;
-      font-size: 2rem;
-      color: #7cfc00;
-      animation: flicker 1.5s infinite;
+    /* 2. Flicker Intro */
+    #intro {
+      cursor:pointer;
+      font-size:2rem;
+      animation: flicker 1.8s infinite;
+      text-shadow:
+        0 0 8px #7cfc00,
+        0 0 16px #7cfc00,
+        0 0 24px #0f0;
     }
     @keyframes flicker {
-      0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-      20%, 24%, 55% { opacity: 0.3; }
+      0%,18%,22%,25%,53%,57%,100% { opacity:1; }
+      20%,24%,55% { opacity:0.3; }
     }
 
-    /* hidden by default */
-    #matrixCanvas, #codeBox { display: none; }
+    /* 3. Particles.js container */
+    #particles-js {
+      position:fixed; top:0; left:0; width:100%; height:100%; z-index:1;
+    }
 
-    /* code box styling */
-    #codeBox {
-      position: absolute;
-      bottom: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, .8);
-      color: #7cfc00;
-      padding: 1rem 2rem;
-      font-family: 'Courier New', monospace;
-      font-size: 1.5rem;
-      border: 2px solid #7cfc00;
-      border-radius: 4px;
-      white-space: nowrap;
+    /* 4. Matrix canvas */
+    #matrix {
+      position:fixed; top:0; left:0; width:100%; height:100%; z-index:2;
+    }
+
+    /* 5. Overlay for typing/glitch */
+    #overlay {
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.75);
+      z-index:3;
+      display:flex; align-items:center; justify-content:center; flex-direction:column;
+    }
+    /* Typewriter */
+    #headline {
+      font-size:3rem; white-space:nowrap; overflow:hidden; border-right:3px solid #7cfc00;
+      animation: typing 4s steps(40) forwards, blink-caret 0.5s step-end infinite;
+    }
+    @keyframes typing {
+      from { width:0; } to { width:100%; }
+    }
+    @keyframes blink-caret {
+      50% { border-color: transparent; }
+    }
+
+    /* Glitch effect */
+    .glitch {
+      position:relative; color:#7cfc00; font-size:4rem;
+    }
+    .glitch::before, .glitch::after {
+      content:attr(data-text);
+      position:absolute; left:0;
+      clip:rect(0,900px,0,0);
+    }
+    .glitch::before {
+      animation: glitchTop 2s infinite; color:#f00;
+    }
+    .glitch::after {
+      animation: glitchBot 3s infinite; color:#0ff;
+    }
+    @keyframes glitchTop {
+      0%,20%,40%,60%,80%,100% { clip:rect(0,900px,0,0); }
+      10% { clip:rect(10px,900px,50px,0); transform:translate(-3px,-3px); }
+      30% { clip:rect(30px,900px,60px,0); transform:translate(3px,3px); }
+    }
+    @keyframes glitchBot {
+      0%,20%,40%,60%,80%,100% { clip:rect(0,900px,0,0); }
+      15% { clip:rect(60px,900px,90px,0); transform:translate(3px,-3px); }
+      50% { clip:rect(100px,900px,140px,0); transform:translate(-3px,3px); }
+    }
+
+    /* 6. Code box */
+    #code-box {
+      background:rgba(0,0,0,0.85); padding:1rem 2rem; border:2px solid #7cfc00;
+      border-radius:5px; font-size:1.5rem; margin-top:2rem;
+      display:none;
     }
   </style>
 </head>
 <body>
 
-  <!-- initial flicker text -->
-  <div id="container">
-    <div id="triggerText">you take the red pill... you stay in wonderland.</div>
+  <!-- Intro flicker -->
+  <div id="intro" class="center">you take the red pill... you stay in wonderland.</div>
+
+  <!-- Particles.js -->
+  <div id="particles-js"></div>
+
+  <!-- Matrix rain canvas -->
+  <canvas id="matrix"></canvas>
+
+  <!-- Overlay: typing headline & glitch -->
+  <div id="overlay" class="hidden">
+    <div id="headline">initializing access sequence</div>
+    <div class="glitch" data-text="ACCESS GRANTED">ACCESS GRANTED</div>
+    <div id="code-box">loading code...</div>
   </div>
 
-  <!-- canvas for matrix effect -->
-  <canvas id="matrixCanvas"></canvas>
-
-  <!-- revealed access code -->
-  <div id="codeBox">access code: ██████</div>
-
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- particles.js lib :contentReference[oaicite:6]{index=6} -->
   <script>
-    const container = document.getElementById('container');
-    const triggerText = document.getElementById('triggerText');
-    const canvas = document.getElementById('matrixCanvas');
-    const codeBox = document.getElementById('codeBox');
+    // 1. Click to start
+    const intro = document.getElementById('intro');
+    const overlay = document.getElementById('overlay');
+    const headline = document.getElementById('headline');
+    const codeBox = document.getElementById('code-box');
     let started = false;
 
-    // on click, remove flicker and start matrix
-    container.addEventListener('click', () => {
-      if (started) return;
-      started = true;
-      // hide flicker text
-      container.style.display = 'none';
-
-      // show matrix canvas
-      canvas.style.display = 'block';
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      startMatrix();
-
-      // after a short delay, show code box
+    intro.addEventListener('click', () => {
+      if (started) return; started = true;
+      intro.classList.add('hidden');
+      initParticles();
+      initMatrix();
       setTimeout(() => {
-        codeBox.style.display = 'block';
-      }, 3000);
+        overlay.classList.remove('hidden');
+      }, 2000);
+      // after typing finishes (~4s), show glitch then code
+      setTimeout(fetchCode, 6500);
     });
 
-    // matrix rain effect
-    function startMatrix() {
-      const ctx = canvas.getContext('2d');
-      const letters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴン';
-      const fontSize = 16;
-      const columns = Math.floor(canvas.width / fontSize);
-      const drops = Array(columns).fill(1);
-
-      function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = '#7cfc00';
-        ctx.font = fontSize + 'px monospace';
-
-        for (let i = 0; i < drops.length; i++) {
-          const text = letters.charAt(Math.floor(Math.random() * letters.length));
-          const x = i * fontSize;
-          const y = drops[i] * fontSize;
-          ctx.fillText(text, x, y);
-
-          if (y > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
-          drops[i]++;
+    // 2. Particles.js setup
+    function initParticles() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value:100, density:{enable:true, value_area:800} },
+          color: { value: '#7cfc00' },
+          shape: { type:'circle' },
+          opacity: { value:.5 },
+          size: { value:3 },
+          line_linked: { enable:true, distance:150, color:'#7cfc00', opacity:.2, width:1 },
+          move: { enable:true, speed:2 }
         }
-      }
-
-      setInterval(draw, 50);
+      });
     }
 
-    // handle window resize
+    // 3. Matrix rain effect
+    function initMatrix() {
+      const canvas = document.getElementById('matrix');
+      const ctx = canvas.getContext('2d');
+      canvas.width = innerWidth; canvas.height = innerHeight;
+      const fontSize = 16;
+      const columns = canvas.width / fontSize;
+      const drops = Array(Math.floor(columns)).fill(1);
+      const letters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴン';
+      setInterval(() => {
+        ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = '#7cfc00'; ctx.font = fontSize + 'px monospace';
+        drops.forEach((y, i) => {
+          const text = letters.charAt(Math.random()*letters.length);
+          const x = i * fontSize;
+          ctx.fillText(text, x, y*fontSize);
+          drops[i] = y * fontSize > canvas.height && Math.random()>0.975 ? 0 : y+1;
+        });
+      }, 50);
+    }
+
+    // 4. Fetch access code
+    function fetchCode() {
+      fetch('https://files.catbox.moe/myrqma.txt') // external code :contentReference[oaicite:7]{index=7}
+        .then(res => res.text())
+        .then(txt => {
+          codeBox.textContent = 'access code: ' + txt.trim();
+          codeBox.style.display = 'block';
+        });
+    }
+
+    // 5. Responsive canvas
     window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const m = document.getElementById('matrix');
+      m.width = innerWidth; m.height = innerHeight;
     });
   </script>
 </body>
