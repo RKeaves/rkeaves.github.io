@@ -230,13 +230,16 @@
   <canvas id="matrix"></canvas>
 
   <!-- Overlay -->
-  <div id="overlay" class="hidden">
-    <div id="headline">initializing access sequence</div>
-    <div id="accessSection">
+<div id="overlay" class="hidden">
+  <div id="headline">initializing access sequence</div>
+  <div id="accessSection">
+    <!-- Wrap the glitch div in an anchor -->
+    <a href="index.html" style="text-decoration: none;">
       <div class="glitch" data-text="ACCESS GRANTED">ACCESS GRANTED</div>
-      <div id="code-box">loading code...</div>
-    </div>
+    </a>
+    <div id="code-box">loading code...</div>
   </div>
+</div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
