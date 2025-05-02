@@ -2,24 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>?</title>
+  <title>Access Code</title>
   <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      background-color: gray;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* reset and full-screen gray background */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; background: #333; overflow: hidden; }
+
+    /* center container */
+    #container {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      cursor: pointer;
     }
-    body {
-      font-size: 10rem;
-      color: white;
-      font-family: sans-serif;
+
+    /* flickering text */
+    #triggerText {
+      font-family: 'Courier New', monospace;
+      font-size: 2rem;
+      color: #7cfc00;
+      animation: flicker 1.5s infinite;
+    }
+    @keyframes flicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.3; }
+    }
+
+    /* hidden by default */
+    #matrixCanvas, #codeBox { display: none; }
+
+    /* code box styling */
+    #codeBox {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, .8);
+      color: #7cfc00;
+      padding: 1rem 2rem;
+      font-family: 'Courier New', monospace;
+      font-size: 1.5rem;
+      border: 2px solid #7cfc00;
+      border-radius: 4px;
+      white-space: nowrap;
     }
   </style>
 </head>
 <body>
-  ?
+
+  <!-- initial flicker text -->
+  <div id="container">
+    <div id="triggerText">you take the red pill... you stay in wonderland.</div>
+  </div>
+
+  <!-- canvas for matrix effect -->
+  <canvas id="matrixCanvas"></canvas>
+
+  <!-- revealed access code -->
+  <div id="codeBox">access code: ██████</div>
+
+  <script>
+    const container = document.getElementById('container');
+    const triggerText = document.getElementById('triggerText');
+    const canvas = document.getElementById('matrixCanvas');
+    const codeBox = document.getElementById('codeBox');
+    let started = false;
+
+    // on click, remove flicker and start matrix
+    container.addEventListener('click', () => {
+      if (started) return;
+      started = true;
+      // hide flicker text
+      container.style.display = 'none';
+
+      // show matrix canvas
+      canvas.style.display = 'block';
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      startMatrix();
+
+      // after a short delay, show code box
+      setTimeout(() => {
+        codeBox.style.display = 'block';
+      }, 3000);
+    });
+
+    // matrix rain effect
+    function startMatrix() {
+      const ctx = canvas.getContext('2d');
+      const letters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴン';
+      const fontSize = 16;
+      const columns = Math.floor(canvas.width / fontSize);
+      const drops = Array(columns).fill(1);
+
+      function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#7cfc00';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = letters.charAt(Math.floor(Math.random() * letters.length));
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+          ctx.fillText(text, x, y);
+
+          if (y > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      setInterval(draw, 50);
+    }
+
+    // handle window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
 </body>
 </html>
