@@ -3,55 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RKeaves :: Terminal</title>
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon"> 
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>RKeaves :: Terminal — cinema obscura</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <style>
-
+    /* ============================================================
+       NEON THEME + CINEMA PAPER BAR (extremamente sutil)
+       Barra quase invisível, drop shadow suave, estilo película antiga
+       ============================================================ */
     :root {
       --neon-cyan: #0ff;
       --neon-amber: #FF9900;
       --matrix-green: #0f0;
       --cyber-background: linear-gradient(45deg, #0a0a1a, #1a1a2e);
       --terminal-border: 2px solid var(--neon-cyan);
-      --text-glow: 0 0 10px currentColor;
+      --text-glow: 0 0 8px currentColor;
+      --paper-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,240,180,0.02);
+      --film-grain: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjQ1IiBudW1PY3RhdmVzPSIzIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI2YpIiBvcGFjaXR5PSIwLjAyIi8+PC9zdmc+');
     }
 
-    *{
-      box-sizing:border-box;
-      max-width:100%;
+    * {
+      box-sizing: border-box;
+      max-width: 100%;
     }
 
-    html{
-      width:100%;
-      overflow-x:hidden;
+    html {
+      width: 100%;
+      overflow-x: hidden;
     }
 
     body {
       background: var(--cyber-background);
       color: var(--neon-cyan);
-      font-family: 'Fira Code', monospace;
+      font-family: 'Fira Code', 'Courier New', monospace;
       font-size: 14px;
       line-height: 1.6;
       margin: 0;
       text-shadow: var(--text-glow);
       min-height: 100vh;
       padding: 1rem;
-      overflow-x:hidden;
-      width:100%;
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
     }
 
+    /* ===== BARRAS CINEMATOGRÁFICAS (PAPEL ÁCIDO / PELÍCULA) ===== */
+    .film-bar {
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      pointer-events: none;
+      z-index: 9999;
+      background: radial-gradient(ellipse at center, rgba(230,210,140,0.08) 0%, rgba(180,150,80,0.02) 80%);
+      box-shadow: 0 0 4px rgba(200,170,80,0.05), inset 0 0 2px rgba(255,245,180,0.03);
+      transition: opacity 0.2s;
+      backdrop-filter: blur(0.2px);
+    }
+
+    .film-bar-top {
+      top: 0;
+      border-bottom: 0.5px solid rgba(210,180,100,0.06);
+    }
+
+    .film-bar-bottom {
+      bottom: 0;
+      border-top: 0.5px solid rgba(210,180,100,0.06);
+      height: 3px;
+    }
+
+    /* Grão de filme extremamente suave */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: var(--film-grain);
+      background-repeat: repeat;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 9998;
+      mix-blend-mode: overlay;
+    }
+
+    /* Sombra "drop shadow" estilo papel envelhecido no container principal */
     .container {
-      width:100%;
+      width: 100%;
       max-width: 800px;
       margin: 0 auto;
       border: var(--terminal-border);
       padding: 2rem;
-      box-shadow: 0 0 20px var(--neon-amber);
-      overflow:hidden;
+      box-shadow: var(--paper-shadow), 0 0 18px rgba(255, 153, 0, 0.08);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(0.4px);
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
     }
 
+    /* Efeito de luz varredora ultra-sutil (como projetor antigo) */
+    @keyframes slowProjectorSweep {
+      0% { transform: translateX(-100%) skewX(-3deg); opacity: 0; }
+      10% { opacity: 0.05; }
+      90% { opacity: 0.04; }
+      100% { transform: translateX(200%) skewX(-3deg); opacity: 0; }
+    }
+
+    .cinema-sweep {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 180px;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,210,120,0.04), transparent);
+      filter: blur(8px);
+      pointer-events: none;
+      z-index: 10000;
+      animation: slowProjectorSweep 18s infinite linear;
+      transform: skewX(-4deg);
+    }
+
+    /* Mantém os elementos originais do terminal */
     .menu {
       border-top: var(--terminal-border);
       border-bottom: var(--terminal-border);
@@ -62,27 +136,26 @@
     .menu ul {
       display: flex;
       justify-content: space-between;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
       padding: 0;
       list-style: none;
     }
 
-    .menu li{
-      list-style:none;
+    .menu li {
+      list-style: none;
     }
 
-    .menu li::before{
-      display:none;
+    .menu li::before {
+      display: none;
     }
 
     .menu li a {
       color: var(--neon-amber);
       text-decoration: none;
       transition: all 0.3s ease;
-      overflow-wrap:break-word;
-      word-break:break-word;
+      overflow-wrap: break-word;
     }
 
     .menu li a:hover {
@@ -106,26 +179,21 @@
     }
 
     pre {
-      background: rgba(0,0,0,0.7);
+      background: rgba(0, 0, 0, 0.7);
       border: 2px solid var(--neon-amber);
       padding: 1rem;
       overflow-x: auto;
-      -webkit-overflow-scrolling:touch;
       text-shadow: none;
       margin: 1rem 0;
-      box-shadow: 0 0 10px var(--neon-amber);
-      width:100%;
-      white-space:pre-wrap;
-      word-break:break-word;
+      box-shadow: 0 0 8px var(--neon-amber);
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
     code {
       background: transparent;
-      border: none;
-      padding: 0;
       display: block;
-      overflow-wrap:break-word;
-      word-break:break-word;
+      overflow-wrap: break-word;
     }
 
     h2 {
@@ -133,16 +201,10 @@
       border-bottom: 2px solid var(--neon-cyan);
       padding-bottom: 0.5rem;
       margin: 1.5rem 0;
-      overflow-wrap:break-word;
     }
 
     ul {
       padding-left: 1.5rem;
-    }
-
-    li{
-      overflow-wrap:break-word;
-      word-break:break-word;
     }
 
     li::before {
@@ -154,151 +216,56 @@
     a {
       color: var(--neon-cyan);
       text-decoration: none;
-      overflow-wrap:break-word;
-      word-break:break-word;
     }
 
     a:hover {
       text-decoration: underline;
-      text-shadow: 0 0 15px var(--neon-cyan);
+      text-shadow: 0 0 12px var(--neon-cyan);
     }
 
-    p{
-      overflow-wrap:break-word;
-      word-break:break-word;
+    img {
+      max-width: 100%;
+      height: auto;
     }
 
-    img{
-      max-width:100%;
-      height:auto;
+    /* Responsividade */
+    @media (max-width: 768px) {
+      body { font-size: 13px; padding: 0.7rem; }
+      .container { padding: 1rem; }
+      .film-bar { height: 2px; }
+      .menu ul { flex-direction: column; gap: 0.8rem; }
+      .menu li { width: 100%; text-align: center; }
     }
 
-    /* ===== TABLETS ===== */
-
-    @media(max-width:768px){
-
-      body{
-        font-size:13px;
-        padding:0.7rem;
-      }
-
-      .container{
-        padding:1rem;
-      }
-
-      .menu{
-        margin:1rem 0;
-        padding:0.8rem 0;
-      }
-
-      .menu ul{
-        flex-direction:column;
-        justify-content:center;
-        align-items:center;
-        gap:0.8rem;
-      }
-
-      .menu li{
-        width:100%;
-        text-align:center;
-      }
-
-      h2{
-        font-size:1rem;
-      }
-
-      pre{
-        font-size:12px;
-        padding:0.8rem;
-      }
-
-      p{
-        font-size:13px;
-        line-height:1.7;
-      }
-
+    @media (max-width: 430px) {
+      body { padding: 0.45rem; }
+      .container { padding: 0.8rem; }
+      .film-bar { height: 1px; }
     }
-
-    /* ===== SMALL IPHONES ===== */
-
-    @media(max-width:430px){
-
-      body{
-        padding:0.45rem;
-      }
-
-      .container{
-        padding:0.8rem;
-        border-width:1px;
-      }
-
-      .menu{
-        padding:0.6rem 0;
-      }
-
-      .menu ul{
-        gap:0.55rem;
-      }
-
-      .menu li a{
-        font-size:13px;
-      }
-
-      p{
-        font-size:13px;
-        line-height:1.65;
-      }
-
-      h2{
-        font-size:0.95rem;
-      }
-
-      pre{
-        font-size:11px;
-        padding:0.7rem;
-      }
-
-    }
-
   </style>
 </head>
-
 <body>
 
+<!-- BARRAS CINEMATOGRÁFICAS – quase invisíveis, com drop shadow e textura de papel -->
+<div class="film-bar film-bar-top"></div>
+<div class="film-bar film-bar-bottom"></div>
+<div class="cinema-sweep"></div>
+
 <div class="container">
-
   <header>
-
-      <div class="menu">
-
-        <ul>
-
-          <li class="prompt">
-            [RKeaves@home]$ <span class="blink">█</span>
-          </li>
-
-          <li>
-            <a href="https://rkeaves.github.io">/profile</a>
-          </li>
-
-          <li>
-            <a href="/bio">/bio</a>
-          </li>
-
-          <li>
-            <a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer">
-              /gateway
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-
+    <div class="menu">
+      <ul>
+        <li class="prompt">
+          [RKeaves@home]$ <span class="blink">█</span>
+        </li>
+        <li><a href="https://rkeaves.github.io">/profile</a></li>
+        <li><a href="/bio">/bio</a></li>
+        <li><a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer">/gateway</a></li>
+      </ul>
+    </div>
   </header>
 
   <main>
-
     <pre><code>$ cat /user/RKeaves/vault.yaml</code></pre>
 
     <pre><code>welcome!
@@ -311,84 +278,49 @@ coordinates:
   - audiophile
   - pc gaming</code></pre>
 
+    <!-- LINHA EXATAMENTE COMO NA IMAGEM: $ ./initiate_greet.sh -->
     <pre><code>$ ./initiate_greet.sh</code></pre>
 
     <p>
-      Greetings, if you made it this far. This is just a small corner of the internet based somewhere in ████. Archived links, resources, projects, and other things. Feel free to look around!
+      Greetings, if you made it this far. This is just a small corner of the internet based somewhere in ████. Archived links, old resources, random projects, and other things. Feel free to look around!
     </p>
-	  
+
     <h2>> more </h2>
-
     <ul>
-
-      <li>
-        discord:
-        <a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer">
-          <strong>rkeaves</strong>
-        </a>
-      </li>
-
-      <li>
-        matrix:
-        <a href="https://rkeaves.github.io">
-          <strong>rkeaves.github.io</strong>
-        </a>
-      </li>
-
-      <li>
-        vault:
-        <a href="https://github.com/RKeaves" target="_blank" rel="noopener noreferrer">
-          <strong>github.com/rkeaves</strong>
-        </a>
-      </li>
-
-	  <li>
-        cache:
-        <a href="https://ingressor.github.io" target="_blank" rel="noopener noreferrer">
-
-          <img
-            src="http://rkeaves.github.io/assets/tornado.webp"
-            alt="Tornado Icon"
-            width="11"
-            height="11"
-            style="vertical-align: middle;"
-          >
-
-		</a>
-	  </li>
-
+      <li>discord: <a href="https://discord.com/invite/qR6R8A39Pk" target="_blank"><strong>rkeaves</strong></a></li>
+      <li>matrix: <a href="https://rkeaves.github.io"><strong>rkeaves.github.io</strong></a></li>
+      <li>vault: <a href="https://github.com/RKeaves" target="_blank"><strong>github.com/rkeaves</strong></a></li>
+      <li>cache: <a href="https://ingressor.github.io" target="_blank"><img src="http://rkeaves.github.io/assets/tornado.webp" alt="Tornado Icon" width="11" height="11" style="vertical-align: middle;"></a></li>
     </ul>
 
     <h2>> elsewhere</h2>
-
     <ul>
-
-      <li>
-        <a href="https://discord.com/invite/qR6R8A39Pk">
-          vidora
-        </a>
-      </li>
-
+      <li><a href="https://discord.com/invite/qR6R8A39Pk">vidora</a></li>
     </ul>
 
     <div style="text-align:left; margin:2rem 0;">
-
-      <p style="font-size:1rem; font-family:'Courier New', Courier, monospace; display:inline;">
-
-        Visitors:
-
-        <img
-          src="https://hits.sh/rkeaves.github.io.svg?style=flat-square&label=>&color=00ffff&labelColor=000000"
-          alt="Visit Counter"
-          style="vertical-align:middle; border:none; display:inline; margin-left:5px;"
-        >
-
+      <p style="font-size:1rem; display:inline;">Visitors:
+        <img src="https://hits.sh/rkeaves.github.io.svg?style=flat-square&label=>&color=00ffff&labelColor=000000" alt="Visit Counter" style="vertical-align:middle; border:none; display:inline; margin-left:5px;">
       </p>
-
     </div>
-
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   </main>
 </div>
+
+<!-- Pequeno script para manter o brilho sutil da barra (sem impacto) -->
+<script>
+  (function() {
+    // Apenas para garantir que as barras tenham uma leve variação de opacidade,
+    // simulando a oscilação natural de um projetor antigo.
+    const topBar = document.querySelector('.film-bar-top');
+    const bottomBar = document.querySelector('.film-bar-bottom');
+    if (topBar && bottomBar) {
+      setInterval(() => {
+        const intensity = 0.03 + Math.random() * 0.05;
+        topBar.style.opacity = Math.min(0.12, intensity);
+        bottomBar.style.opacity = Math.min(0.1, intensity * 0.9);
+      }, 4000);
+    }
+  })();
+</script>
 </body>
 </html>
