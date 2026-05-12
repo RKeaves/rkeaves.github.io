@@ -1,3 +1,4 @@
+```html id="z9x4lm"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RKeaves :: Terminal</title>
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon"> 
+
   <style>
+
     :root {
       --neon-cyan: #0ff;
       --neon-amber: #FF9900;
@@ -14,6 +17,16 @@
       --cyber-background: linear-gradient(45deg, #0a0a1a, #1a1a2e);
       --terminal-border: 2px solid var(--neon-cyan);
       --text-glow: 0 0 10px currentColor;
+    }
+
+    *{
+      box-sizing:border-box;
+      max-width:100%;
+    }
+
+    html{
+      width:100%;
+      overflow-x:hidden;
     }
 
     body {
@@ -26,15 +39,18 @@
       text-shadow: var(--text-glow);
       min-height: 100vh;
       padding: 1rem;
-      box-sizing: border-box;
+      overflow-x:hidden;
+      width:100%;
     }
 
     .container {
+      width:100%;
       max-width: 800px;
       margin: 0 auto;
       border: var(--terminal-border);
       padding: 2rem;
       box-shadow: 0 0 20px var(--neon-amber);
+      overflow:hidden;
     }
 
     .menu {
@@ -47,14 +63,27 @@
     .menu ul {
       display: flex;
       justify-content: space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:1rem;
       padding: 0;
       list-style: none;
+    }
+
+    .menu li{
+      list-style:none;
+    }
+
+    .menu li::before{
+      display:none;
     }
 
     .menu li a {
       color: var(--neon-amber);
       text-decoration: none;
       transition: all 0.3s ease;
+      overflow-wrap:break-word;
+      word-break:break-word;
     }
 
     .menu li a:hover {
@@ -82,9 +111,13 @@
       border: 2px solid var(--neon-amber);
       padding: 1rem;
       overflow-x: auto;
+      -webkit-overflow-scrolling:touch;
       text-shadow: none;
       margin: 1rem 0;
       box-shadow: 0 0 10px var(--neon-amber);
+      width:100%;
+      white-space:pre-wrap;
+      word-break:break-word;
     }
 
     code {
@@ -92,6 +125,8 @@
       border: none;
       padding: 0;
       display: block;
+      overflow-wrap:break-word;
+      word-break:break-word;
     }
 
     h2 {
@@ -99,10 +134,16 @@
       border-bottom: 2px solid var(--neon-cyan);
       padding-bottom: 0.5rem;
       margin: 1.5rem 0;
+      overflow-wrap:break-word;
     }
 
     ul {
       padding-left: 1.5rem;
+    }
+
+    li{
+      overflow-wrap:break-word;
+      word-break:break-word;
     }
 
     li::before {
@@ -114,30 +155,151 @@
     a {
       color: var(--neon-cyan);
       text-decoration: none;
+      overflow-wrap:break-word;
+      word-break:break-word;
     }
 
     a:hover {
       text-decoration: underline;
       text-shadow: 0 0 15px var(--neon-cyan);
     }
+
+    p{
+      overflow-wrap:break-word;
+      word-break:break-word;
+    }
+
+    img{
+      max-width:100%;
+      height:auto;
+    }
+
+    /* ===== TABLETS ===== */
+
+    @media(max-width:768px){
+
+      body{
+        font-size:13px;
+        padding:0.7rem;
+      }
+
+      .container{
+        padding:1rem;
+      }
+
+      .menu{
+        margin:1rem 0;
+        padding:0.8rem 0;
+      }
+
+      .menu ul{
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        gap:0.8rem;
+      }
+
+      .menu li{
+        width:100%;
+        text-align:center;
+      }
+
+      h2{
+        font-size:1rem;
+      }
+
+      pre{
+        font-size:12px;
+        padding:0.8rem;
+      }
+
+      p{
+        font-size:13px;
+        line-height:1.7;
+      }
+
+    }
+
+    /* ===== SMALL IPHONES ===== */
+
+    @media(max-width:430px){
+
+      body{
+        padding:0.45rem;
+      }
+
+      .container{
+        padding:0.8rem;
+        border-width:1px;
+      }
+
+      .menu{
+        padding:0.6rem 0;
+      }
+
+      .menu ul{
+        gap:0.55rem;
+      }
+
+      .menu li a{
+        font-size:13px;
+      }
+
+      p{
+        font-size:13px;
+        line-height:1.65;
+      }
+
+      h2{
+        font-size:0.95rem;
+      }
+
+      pre{
+        font-size:11px;
+        padding:0.7rem;
+      }
+
+    }
+
   </style>
 </head>
+
 <body>
+
 <div class="container">
+
   <header>
+
       <div class="menu">
+
         <ul>
+
           <li class="prompt">
             [RKeaves@home]$ <span class="blink">█</span>
           </li>
-          <li><a href="https://rkeaves.github.io">/profile</a></li>
-          <li><a href="/bio">/bio</a></li>
-          <li><a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer">/gateway</a></li>
+
+          <li>
+            <a href="https://rkeaves.github.io">/profile</a>
+          </li>
+
+          <li>
+            <a href="/bio">/bio</a>
+          </li>
+
+          <li>
+            <a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer">
+              /gateway
+            </a>
+          </li>
+
         </ul>
+
       </div>
+
   </header>
 
   <main>
+
     <pre><code>$ cat /user/RKeaves/profile.yaml</code></pre>
 
     <pre><code>handle: RKeaves
@@ -155,35 +317,96 @@ deep_interests:
   - automation scripts
   - audiophile
   - pc gaming</code></pre>
+
     <pre><code>$ ./initiate_greet.sh</code></pre>
 
-    <p>Greetings, net traveler! I'm RK, a ██ year old digital artisan sculpting code from the US under the handle RKeaves. A web dev at the tail end of his career, I'm now chasing projects that ignite passion over profit. I'm deep into P2P networks and automation scripting. Currently building Vidora, a project exploring P2P environments. If you're into resilient systems and clever code, let’s connect.</p>
+    <p>
+      Greetings, net traveler! I'm RK, a ██ year old digital artisan sculpting code from the US under the handle RKeaves. A web dev at the tail end of his career, I'm now chasing projects that ignite passion over profit. I'm deep into P2P networks and automation scripting. Currently building Vidora, a project exploring P2P environments. If you're into resilient systems and clever code, let’s connect.
+    </p>
 	  
     <h2>> Coordinates</h2>
+
     <ul>
-      <li>discord: <a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer"><strong>rkeaves</strong></a></li>
-      <li>matrix: <a href="https://rkeaves.github.io" ><strong>rkeaves.github.io</strong></a></li>
-      <li>email: <a href="mailto:contact@rkeaves.github.io" ><strong>contact@rkeaves.github.io</strong></a></li>
-      <li>vault: <a href="https://github.com/RKeaves" target="_blank" rel="noopener noreferrer"><strong>github.com/rkeaves</strong>     </a></li>
-	  <li>cache: <a href="https://ingressor.github.io" target="_blank" rel="noopener noreferrer">
-        <img src="http://rkeaves.github.io/assets/tornado.webp" alt="Tornado Icon" width="11" height="11" style="vertical-align: middle;">
+
+      <li>
+        discord:
+        <a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer">
+          <strong>rkeaves</strong>
+        </a>
+      </li>
+
+      <li>
+        matrix:
+        <a href="https://rkeaves.github.io">
+          <strong>rkeaves.github.io</strong>
+        </a>
+      </li>
+
+      <li>
+        email:
+        <a href="mailto:contact@rkeaves.github.io">
+          <strong>contact@rkeaves.github.io</strong>
+        </a>
+      </li>
+
+      <li>
+        vault:
+        <a href="https://github.com/RKeaves" target="_blank" rel="noopener noreferrer">
+          <strong>github.com/rkeaves</strong>
+        </a>
+      </li>
+
+	  <li>
+        cache:
+        <a href="https://ingressor.github.io" target="_blank" rel="noopener noreferrer">
+
+          <img
+            src="http://rkeaves.github.io/assets/tornado.webp"
+            alt="Tornado Icon"
+            width="11"
+            height="11"
+            style="vertical-align: middle;"
+          >
+
 		</a>
 	  </li>
+
     </ul>
+
     <h2>> Live Constructs</h2>
+
     <ul>
-      <li><a href="https://discord.com/invite/qR6R8A39Pk">vidora</a></li>
+
+      <li>
+        <a href="https://discord.com/invite/qR6R8A39Pk">
+          vidora
+        </a>
+      </li>
+
     </ul>
-    <div style="text-align: left; margin: 2rem 0;">
-  <p style="font-size: 1rem; font-family: 'Courier New', Courier, monospace; display: inline;">
-    Visitors:
-    <img src="https://hits.sh/rkeaves.github.io.svg?style=flat-square&label=>&color=00ffff&labelColor=000000"
-         alt="Visit Counter"
-         style="vertical-align: middle; border: none; display: inline; margin-left: 5px;">
-  </p>
-</div>
+
+    <div style="text-align:left; margin:2rem 0;">
+
+      <p style="font-size:1rem; font-family:'Courier New', Courier, monospace; display:inline;">
+
+        Visitors:
+
+        <img
+          src="https://hits.sh/rkeaves.github.io.svg?style=flat-square&label=>&color=00ffff&labelColor=000000"
+          alt="Visit Counter"
+          style="vertical-align:middle; border:none; display:inline; margin-left:5px;"
+        >
+
+      </p>
+
+    </div>
+
 	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
   </main>
-  </div>
+
+</div>
+
 </body>
 </html>
+```
