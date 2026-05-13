@@ -16,7 +16,6 @@
       --text-glow: 0 0 10px currentColor;
     }
 
-    /* reset mínimo, sem box-sizing universal */
     body {
       background: var(--cyber-background);
       color: var(--neon-cyan);
@@ -30,7 +29,6 @@
       overflow-x: hidden;
     }
 
-    /* Container IDÊNTICO ao primeiro HTML (sem width:100%, sem overflow, sem background extra) */
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -197,6 +195,27 @@
       text-decoration: underline;
       text-shadow: 0 0 15px var(--neon-cyan);
     }
+
+    /* estilo para duas colunas na parte de coordinates */
+    .two-column-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.2rem 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+      padding-left: 1.5rem;
+    }
+    .two-column-list li {
+      margin: 0;
+      padding: 0;
+      white-space: nowrap;
+    }
+    /* manter o mesmo bullet (⊛) */
+    .two-column-list li::before {
+      content: "⊛";
+      color: var(--neon-amber);
+      margin-right: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -216,13 +235,17 @@
     <pre><code>$ cat /user/rkeaves/vault.yaml</code></pre>
     <pre><code>welcome!
 do not disclose.
-    
+
 coordinates:
-  - torrent blog
-  - opsec tips
-  - archived files
-  - general scripts
-  - tutorials and guides</code></pre>
+<ul class="two-column-list">
+<li>torrent blog</li>
+<li>opsec tips</li>
+<li>archived files</li>
+<li>general scripts</li>
+<li>tutorials / guides</li>
+<li>misc resources</li>
+</ul>
+</code></pre>
 
     <!-- bloco ping com gradiente -->
     <pre class="gradient-bar"><div class="ping-status">
@@ -233,7 +256,7 @@ coordinates:
     <p>
       Greetings! If you're reading this, you've just reached a small hidden corner of the web built by █████. <br>
       It's pretty much an archive for good digital material and more... feel free to look around and explore!
-		</p>
+    </p>
 
     <h2>> more</h2>
     <ul>
