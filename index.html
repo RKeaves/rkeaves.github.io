@@ -176,10 +176,10 @@
       margin: 1.5rem 0;
     }
 
+    /* Listas normais mantêm o símbolo ⊛ */
     ul {
       padding-left: 1.5rem;
     }
-
     li::before {
       content: "⊛";
       color: var(--neon-amber);
@@ -196,25 +196,25 @@
       text-shadow: 0 0 15px var(--neon-cyan);
     }
 
-    /* estilo para duas colunas na parte de coordinates */
+    /* ESTILO PARA DUAS COLUNAS NAS COORDINATES */
     .two-column-list {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0.2rem 1rem;
       margin-top: 0.5rem;
       margin-bottom: 0;
-      padding-left: 1.5rem;
+      padding-left: 0;        /* remove padding extra, já que não tem bullet */
+      list-style: none;
     }
+    /* remove o bullet apenas desta lista */
+    .two-column-list li::before {
+      content: none;
+    }
+    /* opcional: ajuste de espaçamento para ficar igual */
     .two-column-list li {
       margin: 0;
       padding: 0;
       white-space: nowrap;
-    }
-    /* manter o mesmo bullet (⊛) */
-    .two-column-list li::before {
-      content: "⊛";
-      color: var(--neon-amber);
-      margin-right: 0.5rem;
     }
   </style>
 </head>
@@ -238,12 +238,12 @@ do not disclose.
 
 coordinates:
 <ul class="two-column-list">
-<li>torrent blog</li>
-<li>opsec tips</li>
-<li>archived files</li>
-<li>general scripts</li>
-<li>tutorials / guides</li>
-<li>misc resources</li>
+<li>. torrent blog</li>
+<li>. opsec tips</li>
+<li>. archived files</li>
+<li>. general scripts</li>
+<li>. tutorials / guides</li>
+<li>. misc resources</li>
 </ul>
 </code></pre>
 
