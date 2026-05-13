@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RKeaves :: Terminal</title>
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon"> 
+  <title>RKeaves :: Terminal – Bio</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <style>
     :root {
       --neon-cyan: #0ff;
@@ -16,6 +16,7 @@
       --text-glow: 0 0 10px currentColor;
     }
 
+    /* exactly same as index page */
     body {
       background: var(--cyber-background);
       color: var(--neon-cyan);
@@ -26,7 +27,7 @@
       text-shadow: var(--text-glow);
       min-height: 100vh;
       padding: 1rem;
-      box-sizing: border-box;
+      overflow-x: hidden;
     }
 
     .container {
@@ -47,8 +48,19 @@
     .menu ul {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
       padding: 0;
       list-style: none;
+    }
+
+    .menu li {
+      list-style: none;
+    }
+
+    .menu li::before {
+      display: none;
     }
 
     .menu li a {
@@ -80,18 +92,27 @@
     pre {
       background: rgba(0,0,0,0.7);
       border: 2px solid var(--neon-amber);
-      padding: 1rem;
+      padding: 0.8rem;   /* same as index */
       overflow-x: auto;
       text-shadow: none;
       margin: 1rem 0;
       box-shadow: 0 0 10px var(--neon-amber);
+      white-space: pre-wrap;
+      word-break: break-word;
+      position: relative;
     }
 
     code {
       background: transparent;
-      border: none;
-      padding: 0;
       display: block;
+    }
+
+    /* image inside pre: make it responsive and centered */
+    pre img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
 
     h2 {
@@ -125,16 +146,14 @@
 <body>
 <div class="container">
   <header>
-      <div class="menu">
-        <ul>
-          <li class="prompt">
-            [RKeaves@home]$ <span class="blink">█</span>
-          </li>
-          <li><a href="https://rkeaves.github.io">/profile</a></li>
-          <li><a href="/bio">/bio</a></li>
-          <li><a href="https://dcd.gg/vidora" target="_blank" rel="noopener noreferrer">/gateway</a></li>
-        </ul>
-      </div>
+    <div class="menu">
+      <ul>
+        <li class="prompt">[RKeaves@home]$ <span class="blink">█</span></li>
+        <li><a href="https://rkeaves.github.io">/profile</a></li>
+        <li><a href="/bio">/bio</a></li>
+        <li><a href="https://dcd.gg/vidora" target="_blank" rel="noopener noreferrer">/gateway</a></li>
+      </ul>
+    </div>
   </header>
 
   <main>
@@ -148,31 +167,35 @@ time has become a loop, much like scrolling through the same news feed.
 
 <center><img src="assets/surf.gif" alt="Image description"></center>
 </code></pre>
+
     <h6>You take the red pill... you stay in Wonderland.</h6>
-  <h2>> more</h2>
+
+    <h2>> more</h2>
     <ul>
       <li>discord: <a href="https://discord.com/invite/qR6R8A39Pk" target="_blank" rel="noopener noreferrer"><strong>rkeaves</strong></a></li>
-      <li>matrix: <a href="https://rkeaves.github.io" ><strong>rkeaves.github.io</strong></a></li>
-      <li>vault: <a href="https://github.com/RKeaves" target="_blank" rel="noopener noreferrer"><strong>github.com/rkeaves</strong>     </a></li>
-	  <li>cache: <a href="https://cache-gate.online" target="_blank" rel="noopener noreferrer">
+      <li>matrix: <a href="https://rkeaves.github.io"><strong>rkeaves.github.io</strong></a></li>
+      <li>vault: <a href="https://github.com/RKeaves" target="_blank" rel="noopener noreferrer"><strong>github.com/rkeaves</strong></a></li>
+      <li>cache: <a href="https://cache-gate.online" target="_blank" rel="noopener noreferrer">
         <img src="http://rkeaves.github.io/assets/tornado.webp" alt="Tornado Icon" width="11" height="11" style="vertical-align: middle;">
-		</a>
-	  </li>
+      </a></li>
     </ul>
+
     <h2>> elsewhere</h2>
     <ul>
       <li><a href="https://dcd.gg/vidora">vidora</a></li>
     </ul>
+
     <div style="text-align: left; margin: 2rem 0;">
-  <p style="font-size: 1rem; font-family: 'Courier New', Courier, monospace; display: inline;">
-    Visitors:
-    <img src="https://hits.sh/rkeaves.github.io/bio.svg?style=flat-square&label=>&color=00ffff&labelColor=000000"
-         alt="Visit Counter"
-         style="vertical-align: middle; border: none; display: inline; margin-left: 5px;">
-  </p>
-</div>
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <p style="font-size: 1rem; font-family: 'Courier New', Courier, monospace; display: inline;">
+        Visitors:
+        <img src="https://hits.sh/rkeaves.github.io/bio.svg?style=flat-square&label=>&color=00ffff&labelColor=000000"
+             alt="Visit Counter"
+             style="vertical-align: middle; border: none; display: inline; margin-left: 5px;">
+      </p>
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   </main>
-  </div>
+</div>
 </body>
 </html>
