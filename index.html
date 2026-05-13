@@ -16,16 +16,7 @@
       --text-glow: 0 0 10px currentColor;
     }
 
-    * {
-      box-sizing: border-box;
-      max-width: 100%;
-    }
-
-    html {
-      width: 100%;
-      overflow-x: hidden;
-    }
-
+    /* reset mínimo, sem box-sizing universal */
     body {
       background: var(--cyber-background);
       color: var(--neon-cyan);
@@ -37,17 +28,15 @@
       min-height: 100vh;
       padding: 1rem;
       overflow-x: hidden;
-      width: 100%;
     }
 
-    /* Container IDÊNTICO ao primeiro HTML (sem fundo extra, padding 2rem) */
+    /* Container IDÊNTICO ao primeiro HTML (sem width:100%, sem overflow, sem background extra) */
     .container {
       max-width: 800px;
       margin: 0 auto;
       border: var(--terminal-border);
       padding: 2rem;
       box-shadow: 0 0 20px var(--neon-amber);
-      overflow: hidden;
     }
 
     .menu {
@@ -109,7 +98,6 @@
       text-shadow: none;
       margin: 1rem 0;
       box-shadow: 0 0 10px var(--neon-amber);
-      width: 100%;
       white-space: pre-wrap;
       word-break: break-word;
       position: relative;
@@ -120,7 +108,7 @@
       display: block;
     }
 
-    /* Gradiente */
+    /* Gradiente (aplica-se apenas ao bloco ping) */
     .gradient-bar {
       position: relative;
       overflow: hidden;
@@ -142,14 +130,14 @@
       100% { left: 100%; }
     }
 
-    /* Ping dentro do pre – mesma altura exata dos outros pre */
+    /* Ping dentro do pre – mesma altura dos outros pre */
     .ping-status {
       display: flex;
       align-items: center;
       gap: 0.8rem;
       font-family: 'Fira Code', monospace;
-      font-size: 12.2px;      /* mesmo tamanho do body */
-      line-height: 1.6;      /* mesmo line-height do body */
+      font-size: 12.2px;
+      line-height: 1.6;
       color: var(--neon-cyan);
       margin: 0;
       padding: 0;
@@ -225,7 +213,6 @@
   </header>
 
   <main>
-    <!-- mesmos blocos de referência -->
     <pre><code>$ cat /user/rkeaves/vault.yaml</code></pre>
     <pre><code>welcome!
 do not disclose.
@@ -237,7 +224,7 @@ coordinates:
   - audiophile
   - pc gaming</code></pre>
 
-    <!-- bloco ping com altura IDÊNTICA aos anteriores -->
+    <!-- bloco ping com gradiente -->
     <pre class="gradient-bar"><div class="ping-status">
   <div class="ping-dot"></div>
   <div class="ping-text">🜁 pinging <a href="https://rkeaves.github.io" target="_blank" id="pingTarget">rkeaves.github.io</a>  <span id="pingResult">handshake...</span></div>
@@ -271,7 +258,6 @@ coordinates:
   </main>
 </div>
 
-<!-- ping script -->
 <script>
   (function() {
     const targetUrl = "https://rkeaves.github.io";
